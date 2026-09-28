@@ -56,4 +56,17 @@ else
 	exit 1
 fi
 
+# Mono does not always share the system certificate store. Synchronize it
+# before GitDependencies makes HTTPS requests to the Unreal CDN.
+SYSTEM_CA_BUNDLE=""
+for CA_BUNDLE in /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt; do
+	if [ -f "$CA_BUNDLE" ]; then
+		SYSTEM_CA_BUNDLE="$CA_BUNDLE"
+		break
+	fi
+done
+if [ ! "$SYSTEM_CA_BUNDLE" == "" ] && command -v cert-sync >/dev/null 2>&1; then
+	cert-sync --user "$SYSTEM_CA_BUNDLE" >/dev/null
+fi
+
 cd "$START_DIR"
