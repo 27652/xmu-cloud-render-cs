@@ -1,0 +1,47 @@
+# Unreal Engine project output
+Testdemo/Binaries/
+Testdemo/Build/
+Testdemo/DerivedDataCache/
+Testdemo/Intermediate/
+Testdemo/Packaged/
+Testdemo/Saved/
+
+# IDE and local settings
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userprefs
+*.VC.db
+
+# Pixel Streaming dependencies and generated files
+PixelStreamingInfrastructure-UE4.27/node_modules/
+PixelStreamingInfrastructure-UE4.27/logs/
+PixelStreamingInfrastructure-UE4.27/node.zip
+PixelStreamingInfrastructure-UE4.27/**/platform_scripts/cmd/*
+PixelStreamingInfrastructure-UE4.27/**/platform_scripts/bash/*
+
+# Node and package-manager artifacts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.yarn/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Temporary and backup files
+*~
+*.swp
+*.swo
+*.tmp
