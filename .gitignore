@@ -8,6 +8,25 @@ Testdemo/Packaged/
 Testdemo/Makefile
 Testdemo/compile_commands.json
 
+# Generated project files from UE4.27/GenerateProjectFiles.sh
+Testdemo/*.sln
+Testdemo/*.vcxproj*
+Testdemo/*.csproj*
+Testdemo/CMakeLists.txt
+Testdemo/*.code-workspace
+Testdemo/*.kdev4
+Testdemo/.kdev4/
+Testdemo/*.pro
+Testdemo/*.workspace
+Testdemo/*CodeCompletionFolders.txt
+Testdemo/*CodeLitePreProcessor.txt
+Testdemo/*Config.pri
+Testdemo/*Defines.pri
+Testdemo/*Header.pri
+Testdemo/*Includes.pri
+Testdemo/*Source.pri
+Testdemo/.ignore
+
 # Unreal-generated project-local content and user settings
 Testdemo/Content/Developers/
 Testdemo/Config/*PerProjectUserSettings.ini
