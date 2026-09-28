@@ -6,6 +6,15 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$SCRIPT_DIR"
 
+# Prefer the corrected manifest kept at the parent repository root. The
+# GitDependencies tool scans Engine/*/Build, so stage it where the tool finds
+# it before starting the download.
+PARENT_MANIFEST="$SCRIPT_DIR/../Commit.gitdeps.xml"
+if [ -f "$PARENT_MANIFEST" ]; then
+	sed 's#http://cdn\.unrealengine\.com/dependencies#https://cdn.unrealengine.com/dependencies#' \
+		"$PARENT_MANIFEST" > Engine/Build/Commit.gitdeps.xml
+fi
+
 # UE4.27 may be checked out below another repository. Use that repository's
 # config so the configured UE upstream remote is available to GitDependencies.
 GIT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
