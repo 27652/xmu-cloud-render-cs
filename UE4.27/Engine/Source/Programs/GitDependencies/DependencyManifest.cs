@@ -109,7 +109,7 @@ namespace GitDependencies
 		/// Base URL for downloading pack files from.
 		/// </summary>
 		[XmlAttribute]
-		public string BaseUrl = "http://cdn.unrealengine.com/dependencies";
+		public string BaseUrl = "https://cdn.unrealengine.com/dependencies";
 
 		/// <summary>
 		/// Whether to ignore proxy servers when downloading files from this remote.
