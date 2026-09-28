@@ -1,10 +1,16 @@
 # Unreal Engine project output
 Testdemo/Binaries/
-Testdemo/Build/
 Testdemo/DerivedDataCache/
 Testdemo/Intermediate/
-Testdemo/Packaged/
 Testdemo/Saved/
+Testdemo/Build/
+Testdemo/Packaged/
+Testdemo/Makefile
+Testdemo/compile_commands.json
+
+# Unreal-generated project-local content and user settings
+Testdemo/Content/Developers/
+Testdemo/Config/*PerProjectUserSettings.ini
 
 # IDE and local settings
 .vs/
