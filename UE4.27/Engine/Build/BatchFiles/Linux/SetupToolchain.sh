@@ -17,7 +17,7 @@ else
 TOOLCHAIN_CACHE_SIZE=$UE_SDK_CACHE_SIZE
 fi
 
-if [ -d $TOOLCHAIN_ROOT/$TOOLCHAIN_VERSION ]; then
+if [ -x $TOOLCHAIN_ROOT/$TOOLCHAIN_VERSION/x86_64-unknown-linux-gnu/bin/clang++ ]; then
 	echo "Toolchain already installed skipping."
 	exit
 fi
