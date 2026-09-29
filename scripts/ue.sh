@@ -21,6 +21,8 @@ EDITOR_TARGET="${EDITOR_TARGET:-${PROJECT_NAME}Editor}"
 GAME_TARGET="${GAME_TARGET:-${PROJECT_NAME}}"
 
 BUILD_SH="${UE_ROOT}/Engine/Build/BatchFiles/Linux/Build.sh"
+SETUP_TOOLCHAIN_SH="${UE_ROOT}/Engine/Build/BatchFiles/Linux/SetupToolchain.sh"
+LINUX_TOOLCHAIN_CLANG="${UE_ROOT}/Engine/Extras/ThirdPartyNotUE/SDKs/HostLinux/Linux_x64/v19_clang-11.0.1-centos7/x86_64-unknown-linux-gnu/bin/clang++"
 RUNUAT_SH="${UE_ROOT}/Engine/Build/BatchFiles/RunUAT.sh"
 
 UNREAL_EDITOR="${UNREAL_EDITOR:-${UE_ROOT}/Engine/Binaries/Linux/UE4Editor}"
@@ -66,6 +68,21 @@ check_file()
 check_exec()
 {
     [[ -x "$1" ]] || die "Executable not found: $1"
+}
+
+ensure_linux_toolchain()
+{
+    if [[ -x "${LINUX_TOOLCHAIN_CLANG}" ]]; then
+        return 0
+    fi
+
+    check_exec "${SETUP_TOOLCHAIN_SH}"
+    echo "Linux toolchain is missing; running:"
+    echo "  ${SETUP_TOOLCHAIN_SH}"
+    "${SETUP_TOOLCHAIN_SH}"
+
+    [[ -x "${LINUX_TOOLCHAIN_CLANG}" ]] || die \
+        "Linux toolchain setup completed without clang++: ${LINUX_TOOLCHAIN_CLANG}"
 }
 
 
@@ -144,6 +161,7 @@ cmd_build()
 
     check_exec "${BUILD_SH}"
     check_file "${UPROJECT}"
+    ensure_linux_toolchain
 
     "${BUILD_SH}" \
         "${EDITOR_TARGET}" \
@@ -165,6 +183,7 @@ cmd_build_game()
     info "Building ${GAME_TARGET}"
 
     check_exec "${BUILD_SH}"
+    ensure_linux_toolchain
 
     "${BUILD_SH}" \
         "${GAME_TARGET}" \

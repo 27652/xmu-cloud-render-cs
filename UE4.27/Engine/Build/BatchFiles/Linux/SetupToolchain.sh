@@ -35,20 +35,25 @@ fi
 
 if [ ! -f $TOOLCHAIN_ARCHIVE ]; then
 	if which curl 1>/dev/null; then
-		curl $TOOLCHAIN_URL -o $TOOLCHAIN_ARCHIVE
+		curl --fail --location --retry 3 --retry-all-errors --continue-at - "$TOOLCHAIN_URL" -o "$TOOLCHAIN_ARCHIVE.part"
 	elif which wget 1>/dev/null; then
-		wget $TOOLCHAIN_URL -O $TOOLCHAIN_ARCHIVE
+		wget --continue "$TOOLCHAIN_URL" -O "$TOOLCHAIN_ARCHIVE.part"
 	else 
 		echo "Please install curl or wget"
-		exit
+		exit 1
 	fi
+	mv "$TOOLCHAIN_ARCHIVE.part" "$TOOLCHAIN_ARCHIVE"
 else
 	echo "Using cached toolchain."
 fi
 
 if [ -f $TOOLCHAIN_ARCHIVE ]; then
 	echo "Extracting toolchain."
-	tar -xvf $TOOLCHAIN_ARCHIVE -C $TOOLCHAIN_ROOT 
+	if ! tar -xzf "$TOOLCHAIN_ARCHIVE" -C "$TOOLCHAIN_ROOT"; then
+		echo "Toolchain archive is incomplete or corrupt: $TOOLCHAIN_ARCHIVE" >&2
+		rm -f "$TOOLCHAIN_ARCHIVE"
+		exit 1
+	fi
 	# If this is not a git build then do not cache the downloaded zip
 	if [ -f Build/PerforceBuild.txt ]; then
 		rm -f $TOOLCHAIN_ARCHIVE
