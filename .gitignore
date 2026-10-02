@@ -71,4 +71,8 @@ Desktop.ini
 *.swo
 *.tmp
 
-Testdemo/Packaged_SourceUE_Linux/
+Testdemo/Packaged_SourceUE_Linux
+
+node_modules/
+package.json
+package-lock.json
