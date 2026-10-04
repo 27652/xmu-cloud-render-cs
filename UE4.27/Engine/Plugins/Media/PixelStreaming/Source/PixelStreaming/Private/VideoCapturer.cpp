@@ -98,7 +98,7 @@ void FVideoCapturer::OnFrameReady(const FTexture2DRHIRef& FrameBuffer)
 	// The original Pixel Streaming path below remains unchanged.
 	// ---------------------------------------------------------
 	TaskBProcessCompletedReadbacks();
-	TaskBSubmitReadback(FrameBuffer, TimestampUs);
+
 
 	if(CurrentState != webrtc::MediaSourceInterface::SourceState::kLive)
 	{
@@ -126,6 +126,8 @@ void FVideoCapturer::OnFrameReady(const FTexture2DRHIRef& FrameBuffer)
 
 	// Actual texture copy (i.e the actual "capture")
 	CopyTexture(FrameBuffer, Texture);
+
+	TaskBSubmitReadback(FrameBuffer, TimestampUs);
 
 	// Latency test post capture
 	if(FLatencyTester::IsTestRunning() && FLatencyTester::GetTestStage() == FLatencyTester::ELatencyTestStage::POST_CAPTURE)

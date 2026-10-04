@@ -292,18 +292,21 @@ cmd_pixel_server()
 
 cmd_pixel_editor()
 {
-    info "Starting Unreal Editor with Pixel Streaming"
+    info "Starting Unreal project in game mode with Pixel Streaming"
 
     check_exec "${UNREAL_EDITOR}"
 
     echo "Pixel Streaming URL:"
     echo "  ${PIXEL_STREAMING_URL}"
+    echo
+    echo "Note: UE 4.27 does not support Pixel Streaming while the editor is running as an editor."
+    echo "      This command uses the UE4Editor binary in game mode (GIsEditor=false)."
 
     exec "${UNREAL_EDITOR}" \
         "${UPROJECT}" \
+        -game \
         -RenderOffScreen \
-        -EditorPixelStreamingStartOnLaunch=true \
-        -EditorPixelStreamingUseRemoteSignallingServer=true \
+        -AudioMixer \
         -PixelStreamingURL="${PIXEL_STREAMING_URL}"
 }
 
@@ -553,7 +556,7 @@ Commands:
       Start Pixel Streaming signalling server.
 
   pixel-editor
-      Stream Unreal Editor directly.
+      Run the project in game mode with Pixel Streaming.
 
   pixel-run
       Run packaged TestDemo with Pixel Streaming.
