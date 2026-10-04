@@ -282,7 +282,7 @@ cmd_pixel_server()
 
     cd "${PS_SIGNAL_DIR}"
 
-    exec bash "${start_script}"
+    NO_SUDO=1 exec  bash "${start_script}"
 }
 
 
